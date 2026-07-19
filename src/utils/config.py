@@ -41,6 +41,8 @@ class Config:
             config["score"] = int(score)
         if full_extra_tasks := os.getenv("FULL_EXTRA_TASKS"):
             config["full_extra_tasks"] = full_extra_tasks.lower() in ("1", "true", "yes")
+        if extra_task_limit := os.getenv("EXTRA_TASK_LIMIT"):
+            config["extra_task_limit"] = int(extra_task_limit)
             
         # 自动登录相关配置
         if phone := os.getenv("NETEASE_PHONE"):
@@ -59,6 +61,7 @@ class Config:
         config.setdefault("wait_time_min", 15)
         config.setdefault("wait_time_max", 20)
         config.setdefault("score", 3)  # 默认使用3-4分策略
+        config.setdefault("extra_task_limit", 15)
         
         return config
     
@@ -90,6 +93,7 @@ class Config:
         config.setdefault("smtp_port", 465)
         config.setdefault("score", 3)
         config.setdefault("full_extra_tasks", False)
+        config.setdefault("extra_task_limit", 15)
 
     def get(self, key: str, default: Any = None) -> Any:
         """获取配置项"""

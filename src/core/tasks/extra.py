@@ -22,7 +22,8 @@ class ExtraTask:
         try:
             extra_tasks, completed_count = self._get_extra_tasks()
 
-            total_tasks = (7 if not self.config.get('full_extra_tasks', False) else len(extra_tasks) + completed_count)
+            # 每天额外评分上限默认为15次，加上5个基础任务共20次。
+            total_tasks = int(self.config.get('extra_task_limit', 15))
             
             # 如果已经完成任务，直接返回
             if completed_count >= total_tasks:
